@@ -55,109 +55,127 @@ export default function ReferralDashboard() {
   };
 
   return (
-    <div className="min-h-screen bg-background p-4 space-y-6">
+    <div className="min-h-screen bg-background">
       {/* Hero Section */}
-      <Card className="relative overflow-hidden bg-gradient-to-br from-primary/10 via-accent/5 to-primary/5">
-        <CardContent className="p-8">
-          <div className="flex items-center gap-6 mb-6">
-            <Avatar className="h-16 w-16 ring-4 ring-primary/20">
-              <AvatarImage src="/placeholder-avatar.jpg" />
-              <AvatarFallback className="text-lg font-bold">AK</AvatarFallback>
-            </Avatar>
-            <div>
-              <h1 className="text-2xl font-bold">{userData.name}</h1>
-              <div className="flex items-center gap-2 mt-2">
-                <RankBadge rank={userData.rank} size="md" />
-                <span className="text-muted-foreground">• Rank #{userData.leaderboardRank}</span>
-              </div>
+      <div className="bg-gradient-to-br from-primary/10 via-accent/5 to-primary/5 p-4 pb-8">
+        <div className="flex items-center gap-4 mb-6">
+          <Avatar className="h-16 w-16 ring-4 ring-primary/20">
+            <AvatarImage src="/placeholder-avatar.jpg" />
+            <AvatarFallback className="text-lg font-bold bg-primary/20">AK</AvatarFallback>
+          </Avatar>
+          <div className="flex-1">
+            <h1 className="text-xl font-bold">{userData.name}</h1>
+            <div className="flex items-center gap-2 mt-1">
+              <RankBadge rank={userData.rank} size="sm" />
+              <span className="text-sm text-muted-foreground">Rank #{userData.leaderboardRank}</span>
             </div>
           </div>
-          
-          <div className="text-center mb-8">
-            <p className="text-3xl font-bold text-primary mb-2">₹{userData.totalEarnings.toLocaleString()}</p>
-            <p className="text-muted-foreground">Total Earnings 🔥</p>
-          </div>
+        </div>
+        
+        {/* Dynamic Earnings Card */}
+        <Card className="bg-gradient-to-r from-primary to-primary-glow text-white border-0 shadow-lg mb-4">
+          <CardContent className="p-6 text-center">
+            <div className="flex items-center justify-center gap-2 mb-2">
+              <span className="text-2xl">🔥</span>
+              <p className="text-lg font-medium">You've earned</p>
+            </div>
+            <p className="text-4xl font-bold mb-1">₹{userData.totalEarnings.toLocaleString()}</p>
+            <p className="text-white/80 text-sm">so far!</p>
+          </CardContent>
+        </Card>
 
-          <Card className="bg-background/50 backdrop-blur-sm">
-            <CardHeader>
-              <CardTitle className="text-lg flex items-center gap-2">
-                <Share className="h-5 w-5" />
-                Your Referral Code
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="flex gap-2">
-                <Input 
-                  value={referralCode} 
-                  readOnly 
-                  className="font-mono text-center text-lg font-bold"
-                />
-                <Button onClick={copyReferralCode} variant="outline" size="icon">
-                  <Copy className="h-4 w-4" />
-                </Button>
-              </div>
-              <div className="flex gap-2">
-                <Button onClick={shareWhatsApp} className="flex-1" variant="outline">
-                  <MessageCircle className="h-4 w-4 mr-2" />
-                  WhatsApp
-                </Button>
-                <Button variant="outline" size="icon">
-                  <QrCode className="h-4 w-4" />
-                </Button>
-              </div>
-            </CardContent>
-          </Card>
-        </CardContent>
-      </Card>
+        {/* Referral Code Share */}
+        <Card className="bg-background/90 backdrop-blur-sm">
+          <CardContent className="p-4">
+            <div className="flex items-center gap-2 mb-3">
+              <Share className="h-4 w-4 text-primary" />
+              <span className="font-medium text-sm">Your Referral Code</span>
+            </div>
+            <div className="flex gap-2 mb-3">
+              <Input 
+                value={referralCode} 
+                readOnly 
+                className="font-mono text-center font-bold text-primary"
+              />
+              <Button onClick={copyReferralCode} variant="outline" size="icon">
+                <Copy className="h-4 w-4" />
+              </Button>
+            </div>
+            <div className="grid grid-cols-3 gap-2">
+              <Button onClick={shareWhatsApp} variant="outline" size="sm">
+                <MessageCircle className="h-4 w-4 mr-1" />
+                WhatsApp
+              </Button>
+              <Button variant="outline" size="sm">
+                <QrCode className="h-4 w-4 mr-1" />
+                QR Code
+              </Button>
+              <Button variant="outline" size="sm">
+                <Share className="h-4 w-4 mr-1" />
+                Share Card
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
 
-      {/* Stats Grid */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-        <StatCard
-          title="Total Referrals"
-          value={userData.totalReferrals}
-          icon={Users}
-          trend={{ value: 12, isPositive: true }}
-        />
-        <StatCard
-          title="Confirmed Purchases"
-          value={userData.confirmedPurchases}
-          icon={ShoppingCart}
-          trend={{ value: 8, isPositive: true }}
-        />
-        <StatCard
-          title="Cashback Earned"
-          value={`₹${userData.totalEarnings}`}
-          icon={Coins}
-          trend={{ value: 25, isPositive: true }}
-        />
-        <StatCard
-          title="Leaderboard Rank"
-          value={`#${userData.leaderboardRank}`}
-          icon={TrendingUp}
-          trend={{ value: 5, isPositive: true }}
-        />
+      {/* Quick Stats */}
+      <div className="px-4 pb-4">
+        <div className="grid grid-cols-2 gap-3 mb-6">
+          <StatCard
+            title="Total Referrals"
+            value={userData.totalReferrals}
+            icon={Users}
+            trend={{ value: 12, isPositive: true }}
+            className="p-4"
+          />
+          <StatCard
+            title="Confirmed"
+            value={userData.confirmedPurchases}
+            icon={ShoppingCart}
+            trend={{ value: 8, isPositive: true }}
+            className="p-4"
+          />
+          <StatCard
+            title="Cashback"
+            value={`₹${userData.totalEarnings}`}
+            icon={Coins}
+            trend={{ value: 25, isPositive: true }}
+            className="p-4"
+          />
+          <StatCard
+            title="Rank"
+            value={`#${userData.leaderboardRank}`}
+            icon={TrendingUp}
+            trend={{ value: 5, isPositive: true }}
+            className="p-4"
+          />
+        </div>
       </div>
 
       {/* Milestones Section */}
-      <Card>
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            🏆 Milestone Progress
-          </CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-4">
-          {milestones.map((milestone, index) => (
-            <MilestoneCard
-              key={index}
-              title={milestone.title}
-              reward={milestone.reward}
-              currentProgress={milestone.current}
-              targetProgress={milestone.target}
-              isCompleted={milestone.completed}
-            />
-          ))}
-        </CardContent>
-      </Card>
+      <div className="px-4">
+        <Card>
+          <CardHeader className="pb-4">
+            <CardTitle className="flex items-center gap-2 text-lg">
+              🏆 Milestone Progress
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-3 pt-0">
+            {milestones.map((milestone, index) => (
+              <MilestoneCard
+                key={index}
+                title={milestone.title}
+                reward={milestone.reward}
+                currentProgress={milestone.current}
+                targetProgress={milestone.target}
+                isCompleted={milestone.completed}
+                className="p-4"
+              />
+            ))}
+          </CardContent>
+        </Card>
+      </div>
     </div>
   );
 }
