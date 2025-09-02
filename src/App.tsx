@@ -14,23 +14,19 @@ import AuthenticatedLayout from "@/components/layouts/AuthenticatedLayout";
 // Public pages
 import Index from "./pages/Index";
 import Login from "./pages/Login";
-import SignUp from "./pages/SignUp";
-
 // Authenticated pages
 import Dashboard from "./pages/Dashboard";
 import Leaderboard from "./pages/Leaderboard";
 import Profile from "./pages/Profile";
-import Withdrawals from "./pages/Withdrawals";
+import Withdraw from "./pages/Withdraw";
 import Challenges from "./pages/Challenges";
 import Streaks from "./pages/Streaks";
 import Settings from "./pages/Settings";
 import Guidelines from "./pages/Guidelines";
-import Share from "./pages/Share";
 import NotFound from "./pages/NotFound";
 
 // Admin pages
 import AdminLogin from "./pages/admin/AdminLogin";
-import AdminDashboard from "./pages/admin/AdminDashboard";
 
 import ErrorBoundary from "@/components/ErrorBoundary";
 
@@ -67,7 +63,6 @@ const App = () => {
                 <Route path="/" element={<PublicLayout />}>
                   <Route index element={<Index />} />
                   <Route path="login" element={<Login />} />
-                  <Route path="signup" element={<SignUp />} />
                   <Route path="guidelines" element={<Guidelines />} />
                 </Route>
 
@@ -77,17 +72,15 @@ const App = () => {
                   <Route path="dashboard" element={<Dashboard />} />
                   <Route path="leaderboard" element={<Leaderboard />} />
                   <Route path="profile" element={<Profile />} />
-                  <Route path="withdrawals" element={<Withdrawals />} />
+                  <Route path="withdraw" element={<Withdraw />} />
                   <Route path="challenges" element={<Challenges />} />
                   <Route path="streaks" element={<Streaks />} />
                   <Route path="settings" element={<Settings />} />
                   <Route path="guidelines" element={<Guidelines />} />
-                  <Route path="share" element={<Share />} />
                 </Route>
 
                 {/* Admin Routes */}
                 <Route path="/admin" element={<AdminLogin />} />
-                <Route path="/admin/dashboard" element={<AdminDashboard />} />
 
                 {/* Catch-all route */}
                 <Route path="*" element={<NotFound />} />
