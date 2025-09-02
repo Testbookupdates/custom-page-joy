@@ -44,7 +44,7 @@ const Features = () => {
         </div>
         
         <div className="text-center">
-          <Button variant="default" size="lg" className="text-lg px-8 py-6">
+          <Button variant="glow" size="lg" className="text-lg px-8 py-6">
             Explore All Features
           </Button>
         </div>
