@@ -6,6 +6,7 @@ import { StatCard } from "@/components/StatCard";
 import { MilestoneCard } from "@/components/MilestoneCard";
 import { RankBadge } from "@/components/RankBadge";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import ShareModal from "@/components/ShareModal";
 import { useToast } from "@/hooks/use-toast";
 import { 
   Copy, 
@@ -15,11 +16,13 @@ import {
   Coins, 
   TrendingUp,
   QrCode,
-  MessageCircle
+  MessageCircle,
+  Share2
 } from "lucide-react";
 
 export default function ReferralDashboard() {
   const [referralCode] = useState("TESTBOOK2024");
+  const [isShareModalOpen, setIsShareModalOpen] = useState(false);
   const { toast } = useToast();
   
   // Mock data - would come from API
@@ -55,7 +58,24 @@ export default function ReferralDashboard() {
   };
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background relative">
+      {/* Floating Share Button */}
+      <Button
+        onClick={() => setIsShareModalOpen(true)}
+        className="fixed bottom-6 right-6 h-14 w-14 rounded-full bg-gradient-to-r from-primary to-accent shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 z-50"
+        size="icon"
+      >
+        <Share2 className="h-6 w-6" />
+      </Button>
+
+      {/* Share Modal */}
+      <ShareModal
+        isOpen={isShareModalOpen}
+        onClose={() => setIsShareModalOpen(false)}
+        userData={userData}
+        referralCode={referralCode}
+      />
+
       {/* Hero Section */}
       <div className="bg-gradient-to-br from-primary/10 via-accent/5 to-primary/5 p-4 pb-8">
         <div className="flex items-center gap-4 mb-6">
